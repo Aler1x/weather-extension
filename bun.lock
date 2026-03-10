@@ -5,7 +5,9 @@
     "": {
       "name": "wxt-svelte-starter",
       "dependencies": {
+        "@jis3r/icons": "^2.6.0",
         "@lucide/svelte": "^0.577.0",
+        "@wxt-dev/storage": "^1.2.8",
       },
       "devDependencies": {
         "@tsconfig/svelte": "^5.0.8",
@@ -92,6 +94,8 @@
     "@esbuild/win32-ia32": ["@esbuild/win32-ia32@0.27.3", "", { "os": "win32", "cpu": "ia32" }, "sha512-QLKSFeXNS8+tHW7tZpMtjlNb7HKau0QDpwm49u0vUp9y1WOF+PEzkU84y9GqYaAVW8aH8f3GcBck26jh54cX4Q=="],
 
     "@esbuild/win32-x64": ["@esbuild/win32-x64@0.27.3", "", { "os": "win32", "cpu": "x64" }, "sha512-4uJGhsxuptu3OcpVAzli+/gWusVGwZZHTlS63hh++ehExkVT8SgiEf7/uC/PclrPPkLhZqGgCTjd0VWLo6xMqA=="],
+
+    "@jis3r/icons": ["@jis3r/icons@2.6.0", "", { "peerDependencies": { "svelte": "^5.0.0" } }, "sha512-YsUkLHzEIXQWQoE5NkacpQmQoc+hczHaJlu7BB3iQxLe7ya7Q5RCmqlgj8fOA06ObNZQ/TvB+JpJVft2oKMdxA=="],
 
     "@jridgewell/gen-mapping": ["@jridgewell/gen-mapping@0.3.13", "", { "dependencies": { "@jridgewell/sourcemap-codec": "^1.5.0", "@jridgewell/trace-mapping": "^0.3.24" } }, "sha512-2kkt/7niJ6MgEPxF0bYdQ6etZaA+fQvDcLKckhy1yIQOzaoKjBBjSj63/aLVjYE3qhRt5dvM+uUyfCg6UKCBbA=="],
 
