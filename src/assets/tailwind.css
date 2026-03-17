@@ -1,0 +1,283 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Primary */
+  --primary: #6B5B53;
+  --on-primary: #FFF6F2;
+  --primary-container: #F4DED3;
+  --on-primary-container: #5E4F47;
+  --primary-inverse: #D7C2B8;
+  --primary-fixed: #F4DED3;
+  --primary-fixed-dim: #E5D0C6;
+  --on-primary-fixed: #4A3C35;
+  --on-primary-fixed-variant: #685850;
+
+  /* Secondary */
+  --secondary: #665D59;
+  --on-secondary: #FFF7F5;
+  --secondary-container: #ECE0DB;
+  --on-secondary-container: #58504C;
+  --secondary-fixed: #ECE0DB;
+  --secondary-fixed-dim: #DED2CD;
+  --on-secondary-fixed: #453E3A;
+  --on-secondary-fixed-variant: #625A56;
+
+  /* Tertiary */
+  --tertiary: #735B38;
+  --on-tertiary: #FFF8F2;
+  --tertiary-container: #F9D8AC;
+  --on-tertiary-container: #614B29;
+  --tertiary-fixed: #F9D8AC;
+  --tertiary-fixed-dim: #EACA9F;
+  --on-tertiary-fixed: #4C3818;
+  --on-tertiary-fixed-variant: #6B5432;
+
+  /* Error */
+  --error: #B3261E;
+  --on-error: #FFFFFF;
+  --error-container: #F9DEDC;
+  --on-error-container: #8C1D18;
+
+  /* Surface */
+  --surface: #FFF8F6;
+  --on-surface: #37312F;
+  --surface-variant: #EBE0DC;
+  --on-surface-variant: #645E5A;
+  --surface-inverse: #100E0D;
+  --on-surface-inverse: #EEE3DF;
+  --surface-bright: #FFF8F6;
+  --surface-dim: #E3D8D3;
+  --surface-container: #F5ECE9;
+  --surface-container-low: #FAF2EF;
+  --surface-container-lowest: #FFFFFF;
+  --surface-container-high: #F0E6E2;
+  --surface-container-highest: #EBE0DC;
+
+  /* Background & Outline */
+  --background: #FFF8F6;
+  --on-background: #37312F;
+  --outline: #817976;
+  --outline-variant: #CAC4D0;
+
+  --radius: 0.5rem;
+  --shadow-x: 0px;
+  --shadow-y: 4px;
+  --shadow-blur: 8px;
+  --shadow-spread: -2px;
+  --shadow-opacity: 0.1;
+  --shadow-color: #000000;
+  --shadow-2xs: 0px 4px 8px -2px hsl(0 0% 0% / 0.05);
+  --shadow-xs: 0px 4px 8px -2px hsl(0 0% 0% / 0.05);
+  --shadow-sm: 0px 4px 8px -2px hsl(0 0% 0% / 0.10), 0px 1px 2px -3px hsl(0 0% 0% / 0.10);
+  --shadow: 0px 4px 8px -2px hsl(0 0% 0% / 0.10), 0px 1px 2px -3px hsl(0 0% 0% / 0.10);
+  --shadow-md: 0px 4px 8px -2px hsl(0 0% 0% / 0.10), 0px 2px 4px -3px hsl(0 0% 0% / 0.10);
+  --shadow-lg: 0px 4px 8px -2px hsl(0 0% 0% / 0.10), 0px 4px 6px -3px hsl(0 0% 0% / 0.10);
+  --shadow-xl: 0px 4px 8px -2px hsl(0 0% 0% / 0.10), 0px 8px 10px -3px hsl(0 0% 0% / 0.10);
+  --shadow-2xl: 0px 4px 8px -2px hsl(0 0% 0% / 0.25);
+  --tracking-normal: 0px;
+  --spacing: 0.25rem;
+}
+
+.dark {
+  /* Primary */
+  --primary: #D7C2B8;
+  --on-primary: #4B3D36;
+  --primary-container: #52443C;
+  --on-primary-container: #E1CCC2;
+  --primary-inverse: #6B5B53;
+  --primary-fixed: #F4DED3;
+  --primary-fixed-dim: #E5D0C6;
+  --on-primary-fixed: #4A3C35;
+  --on-primary-fixed-variant: #685850;
+
+  /* Secondary */
+  --secondary: #A69C97;
+  --on-secondary: #251F1C;
+  --secondary-container: #413A36;
+  --on-secondary-container: #C8BDB8;
+  --secondary-fixed: #ECE0DB;
+  --secondary-fixed-dim: #DED2CD;
+  --on-secondary-fixed: #453E3A;
+  --on-secondary-fixed-variant: #625A56;
+
+  /* Tertiary */
+  --tertiary: #FFE8CA;
+  --on-tertiary: #6A5331;
+  --tertiary-container: #F9D8AC;
+  --on-tertiary-container: #614B29;
+  --tertiary-fixed: #F9D8AC;
+  --tertiary-fixed-dim: #EACA9F;
+  --on-tertiary-fixed: #4C3818;
+  --on-tertiary-fixed-variant: #6B5432;
+
+  /* Error */
+  --error: #F2B8B5;
+  --on-error: #601410;
+  --error-container: #8C1D18;
+  --on-error-container: #F9DEDC;
+
+  /* Surface */
+  --surface: #100E0D;
+  --on-surface: #EEE3DF;
+  --surface-variant: #2A2522;
+  --on-surface-variant: #9A928E;
+  --surface-inverse: #FFF8F6;
+  --on-surface-inverse: #37312F;
+  --surface-bright: #312B28;
+  --surface-dim: #100E0D;
+  --surface-container: #1C1917;
+  --surface-container-low: #151311;
+  --surface-container-lowest: #000000;
+  --surface-container-high: #231F1D;
+  --surface-container-highest: #2A2522;
+
+  /* Background & Outline */
+  --background: #100E0D;
+  --on-background: #EEE3DF;
+  --outline: #7B7470;
+  --outline-variant: #49454F;
+
+  --shadow-x: 0px;
+  --shadow-y: 5px;
+  --shadow-blur: 10px;
+  --shadow-spread: -3px;
+  --shadow-opacity: 0.2;
+  --shadow-color: #000000;
+  --shadow-2xs: 0px 5px 10px -3px hsl(0 0% 0% / 0.10);
+  --shadow-xs: 0px 5px 10px -3px hsl(0 0% 0% / 0.10);
+  --shadow-sm: 0px 5px 10px -3px hsl(0 0% 0% / 0.20), 0px 1px 2px -4px hsl(0 0% 0% / 0.20);
+  --shadow: 0px 5px 10px -3px hsl(0 0% 0% / 0.20), 0px 1px 2px -4px hsl(0 0% 0% / 0.20);
+  --shadow-md: 0px 5px 10px -3px hsl(0 0% 0% / 0.20), 0px 2px 4px -4px hsl(0 0% 0% / 0.20);
+  --shadow-lg: 0px 5px 10px -3px hsl(0 0% 0% / 0.20), 0px 4px 6px -4px hsl(0 0% 0% / 0.20);
+  --shadow-xl: 0px 5px 10px -3px hsl(0 0% 0% / 0.20), 0px 8px 10px -4px hsl(0 0% 0% / 0.20);
+  --shadow-2xl: 0px 5px 10px -3px hsl(0 0% 0% / 0.50);
+}
+
+@theme inline {
+  /* M3 Primary */
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
+  --color-primary-inverse: var(--primary-inverse);
+  --color-primary-fixed: var(--primary-fixed);
+  --color-primary-fixed-dim: var(--primary-fixed-dim);
+  --color-on-primary-fixed: var(--on-primary-fixed);
+  --color-on-primary-fixed-variant: var(--on-primary-fixed-variant);
+
+  /* M3 Secondary */
+  --color-secondary: var(--secondary);
+  --color-on-secondary: var(--on-secondary);
+  --color-secondary-container: var(--secondary-container);
+  --color-on-secondary-container: var(--on-secondary-container);
+  --color-secondary-fixed: var(--secondary-fixed);
+  --color-secondary-fixed-dim: var(--secondary-fixed-dim);
+  --color-on-secondary-fixed: var(--on-secondary-fixed);
+  --color-on-secondary-fixed-variant: var(--on-secondary-fixed-variant);
+
+  /* M3 Tertiary */
+  --color-tertiary: var(--tertiary);
+  --color-on-tertiary: var(--on-tertiary);
+  --color-tertiary-container: var(--tertiary-container);
+  --color-on-tertiary-container: var(--on-tertiary-container);
+  --color-tertiary-fixed: var(--tertiary-fixed);
+  --color-tertiary-fixed-dim: var(--tertiary-fixed-dim);
+  --color-on-tertiary-fixed: var(--on-tertiary-fixed);
+  --color-on-tertiary-fixed-variant: var(--on-tertiary-fixed-variant);
+
+  /* M3 Error */
+  --color-error: var(--error);
+  --color-on-error: var(--on-error);
+  --color-error-container: var(--error-container);
+  --color-on-error-container: var(--on-error-container);
+
+  /* M3 Surface */
+  --color-surface: var(--surface);
+  --color-on-surface: var(--on-surface);
+  --color-surface-variant: var(--surface-variant);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-surface-inverse: var(--surface-inverse);
+  --color-on-surface-inverse: var(--on-surface-inverse);
+  --color-surface-bright: var(--surface-bright);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+
+  /* M3 Background & Outline */
+  --color-background: var(--background);
+  --color-on-background: var(--on-background);
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+
+  /* Semantic aliases for Tailwind component compatibility */
+  --color-foreground: var(--on-background);
+  --color-card: var(--surface-container);
+  --color-card-foreground: var(--on-surface);
+  --color-popover: var(--surface-container-lowest);
+  --color-popover-foreground: var(--on-surface);
+  --color-primary-foreground: var(--on-primary);
+  --color-secondary-foreground: var(--on-secondary);
+  --color-muted: var(--surface-variant);
+  --color-muted-foreground: var(--on-surface-variant);
+  --color-accent: var(--secondary-container);
+  --color-accent-foreground: var(--on-secondary-container);
+  --color-destructive: var(--error);
+  --color-destructive-foreground: var(--on-error);
+  --color-border: var(--outline);
+  --color-input: var(--outline-variant);
+  --color-ring: var(--primary);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --shadow-2xs: var(--shadow-2xs);
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow: var(--shadow);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+  --shadow-2xl: var(--shadow-2xl);
+
+  --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
+  --tracking-tight: calc(var(--tracking-normal) - 0.025em);
+  --tracking-normal: var(--tracking-normal);
+  --tracking-wide: calc(var(--tracking-normal) + 0.025em);
+  --tracking-wider: calc(var(--tracking-normal) + 0.05em);
+  --tracking-widest: calc(var(--tracking-normal) + 0.1em);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground rounded-2xl ;
+    letter-spacing: var(--tracking-normal);
+    width: 350px;
+  }
+
+  ::selection {
+    background-color: rgba(59, 130, 246, 0.3);
+  }
+}
+
+@layer components {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 3px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: var(--border);
+    border-radius: 2px;
+  }
+}

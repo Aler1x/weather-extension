@@ -1,17 +1,15 @@
 import { storage } from '@wxt-dev/storage';
-import type { GeoResult } from '~/lib/weather';
+import type { LocationsState, Settings, ForecastCache } from '~/lib/types';
 
-export const locationsItem = storage.defineItem<GeoResult[]>('local:locations', {
-  fallback: [],
-  debug: true,
+export const locationsState = storage.defineItem<LocationsState>('local:locations', {
+  fallback: { list: [], activeIndex: 0 },
 });
 
-export const activeIndexItem = storage.defineItem<number>('local:activeIndex', {
-  fallback: 0,
-  debug: true,
+export const settingsState = storage.defineItem<Settings>('local:settings', {
+  fallback: { unit: 'C' },
 });
 
-export const unitItem = storage.defineItem<'C' | 'F'>('local:unit', {
-  fallback: 'C',
-  debug: true,
+/** keyed by `${latitude},${longitude}` */
+export const forecastCache = storage.defineItem<Record<string, ForecastCache>>('local:cache', {
+  fallback: {},
 });
