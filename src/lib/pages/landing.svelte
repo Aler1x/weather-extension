@@ -2,10 +2,12 @@
 	import { onMount } from 'svelte';
 	import { replace } from 'svelte-spa-router';
 	import { locationsState, settingsState } from '~/lib/stores';
+	import type { ThemePreference } from '~/lib/theme';
 	import { geocodeCity } from '~/lib/weather';
 
 	let city = $state('');
 	let unit = $state<'C' | 'F'>('C');
+	let theme = $state<ThemePreference>('system');
 	let loading = $state(false);
 	let error = $state<string | null>(null);
 
@@ -16,6 +18,7 @@
 		]);
 
 		unit = settings.unit;
+		theme = settings.theme ?? 'system';
 
 		if (locations.list.length > 0) {
 			replace('/weather');
@@ -47,7 +50,7 @@
 					list: [result],
 					activeIndex: 0
 				}),
-				settingsState.setValue({ unit })
+				settingsState.setValue({ unit, theme })
 			]);
 
 			replace('/weather');

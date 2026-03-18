@@ -25,7 +25,6 @@ export async function geocodeCity(city: string): Promise<GeoResult | null> {
     latitude: r.latitude,
     longitude: r.longitude,
     country: r.country,
-    admin1: r.admin1,
   };
 }
 

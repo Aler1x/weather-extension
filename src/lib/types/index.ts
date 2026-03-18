@@ -3,7 +3,6 @@ export interface GeoResult {
   latitude: number;
   longitude: number;
   country: string;
-  admin1?: string;
 }
 
 export interface DayForecast {
@@ -44,4 +43,5 @@ export interface LocationsState {
 
 export interface Settings {
   unit: 'C' | 'F';
+  theme: 'system' | 'light' | 'dark';
 }

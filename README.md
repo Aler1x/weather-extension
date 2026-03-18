@@ -1,19 +1,21 @@
 # Simple Forecast
 
-A Firefox browser extension that shows a 10-day weather forecast for one or more saved locations. Built with [WXT](https://wxt.dev) and Svelte 5.
+Simple Forecast is a compact browser extension popup for checking weather across multiple saved locations. It is built with [WXT](https://wxt.dev), Svelte 5, and the [Open-Meteo](https://open-meteo.com/) APIs.
 
 ## Features
 
-- 10-day daily forecast (high/low temp, wind speed, weather condition)
+- Current conditions plus hourly and multi-day forecast
 - Multiple saved locations with quick switching
-- °C / °F toggle, persisted across sessions
-- Compact popup with a fixed size — no layout jumps
-- Weather data from [Open-Meteo](https://open-meteo.com/) (free, no API key)
+- Location management with add, remove, and manual reordering
+- Persisted `°C` / `°F` preference
+- Persisted light/dark theme toggle for the popup
+- Local forecast caching to avoid unnecessary repeat requests
+- Weather data from Open-Meteo with no API key required
 
 ## Requirements
 
-- [Bun](https://bun.sh) — used as the package manager and script runner
-- Firefox (primary target)
+- [Bun](https://bun.sh)
+- Firefox or a Chromium-based browser for local testing
 
 ## Setup
 
@@ -23,13 +25,27 @@ bun install
 
 ## Development
 
-Run the extension in Firefox with hot reload:
+Start the Firefox version with hot reload:
 
 ```bash
 bun run dev:firefox
 ```
 
-This opens a temporary Firefox profile with the extension loaded. Changes to source files are reflected immediately.
+Start the Chromium version:
+
+```bash
+bun run dev
+```
+
+Both commands open a temporary browser profile with the extension loaded.
+
+## Validation
+
+Run the Svelte and TypeScript checks:
+
+```bash
+bun run check
+```
 
 ## Building
 
@@ -39,55 +55,70 @@ Build a production bundle for Firefox:
 bun run build:firefox
 ```
 
-Output goes to `.output/firefox-mv2/`.
+Build a production bundle for Chromium:
 
-## Packaging (zip)
+```bash
+bun run build
+```
 
-Create a signed-ready zip for Firefox Add-ons submission:
+Build output is written to `.output/`.
+
+## Packaging
+
+Create a Firefox zip for distribution:
 
 ```bash
 bun run zip:firefox
 ```
 
-The patch version in `package.json` is **automatically incremented** before every zip via the `prezip:firefox` script. So `0.0.9` becomes `0.0.10` on the next run.
+Create a Chromium zip:
 
-The zip is saved to `.output/simple-forecast-{version}-firefox.zip`.
+```bash
+bun run zip
+```
+
+Generated archives are written to `.output/`.
 
 ## Project structure
 
-```
+```text
 src/
+├── assets/
+│   └── tailwind.css         # Tailwind entry and popup theme tokens
 ├── entrypoints/
 │   └── popup/
-│       ├── App.svelte      # Main popup — search screen, header, forecast
-│       ├── app.css         # All popup styles
-│       ├── index.html      # Popup HTML entry point
-│       └── main.ts         # Svelte mount
+│       ├── App.svelte       # Popup router bootstrap
+│       └── main.ts          # Popup entry and theme setup
 └── lib/
-    ├── WeatherCard.svelte  # Single forecast day card
-    ├── weather.ts          # Open-Meteo API calls + helpers
-    └── stores.ts           # WXT storage items (locations, activeIndex, unit)
-
-scripts/
-└── bump-version.js         # Increments patch version in package.json
+    ├── pages/
+    │   ├── landing.svelte   # First-run location setup
+    │   ├── locations.svelte # Saved locations management
+    │   └── weather.svelte   # Forecast view
+    ├── routes.ts            # Popup route map
+    ├── stores.ts            # WXT storage items
+    ├── theme.ts             # Theme helpers
+    ├── types/               # Shared TypeScript types
+    └── weather.ts           # Open-Meteo API calls and weather helpers
 ```
 
 ## Tech stack
 
 | | |
 |---|---|
-| Framework | [WXT](https://wxt.dev) (WebExtension tooling) |
+| Framework | [WXT](https://wxt.dev) |
 | UI | [Svelte 5](https://svelte.dev) with runes |
+| Styling | [Tailwind CSS](https://tailwindcss.com/) |
 | Storage | [@wxt-dev/storage](https://github.com/wxt-dev/wxt/tree/main/packages/storage) |
 | Icons | [@lucide/svelte](https://lucide.dev) |
 | Weather API | [Open-Meteo](https://open-meteo.com/) + Geocoding API |
+| Weather icon set | [Google weather icons](https://github.com/bignutty/google-weather-icons) |
 | Package manager | [Bun](https://bun.sh) |
 
 ## Data & privacy
 
 No account or API key is required. The extension makes direct requests to:
 
-- `https://geocoding-api.open-meteo.com` — city name → coordinates
-- `https://api.open-meteo.com` — forecast data
+- `https://geocoding-api.open-meteo.com` for city search
+- `https://api.open-meteo.com` for forecast data
 
-All saved locations and settings are stored locally in the browser via `storage.local`. Nothing is sent to any external server beyond the weather API requests.
+Saved locations, popup settings, and forecast cache entries are stored locally in the browser via `storage.local`. No user account data is collected and nothing is sent anywhere except the weather API requests above.

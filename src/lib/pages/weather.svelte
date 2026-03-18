@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { replace } from 'svelte-spa-router';
+	import { Moon, Sun, MapPin, Heart } from '@lucide/svelte';
 	import type { ForecastData } from '~/lib/types';
 	import { forecastCache, locationsState, settingsState } from '~/lib/stores';
+	import { applyTheme, resolveIsDark, type ThemePreference } from '~/lib/theme';
 	import {
 		cacheKey,
 		convertTemp,
@@ -12,7 +14,6 @@
 		getWeatherLabel
 	} from '~/lib/weather';
 	import M3LoadingIndicator from '@alerix/m3-loading-indicator/svelte';
-	import { Layers, MapPin, Heart } from '@lucide/svelte';
 
 	const CACHE_TTL_MS = 20 * 60 * 1000;
 
@@ -33,6 +34,8 @@
 	let error = $state<string | null>(null);
 
 	let unit = $state<'C' | 'F'>('C');
+	let theme = $state<ThemePreference>('system');
+	let isDarkTheme = $state(false);
 	let locationLabel = $state('');
 	let conditionLabel = $state('');
 	let locationsCount = $state(0);
@@ -93,21 +96,35 @@
 
 	async function toggleUnit(): Promise<void> {
 		unit = unit === 'C' ? 'F' : 'C';
-		await settingsState.setValue({ unit });
+		await settingsState.setValue({ unit, theme });
 		if (rawForecast) {
-			const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-			applyForecast(rawForecast, isDark);
+			applyForecast(rawForecast, isDarkTheme);
+		}
+	}
+
+	async function toggleTheme(): Promise<void> {
+		theme = resolveIsDark(theme) ? 'light' : 'dark';
+		isDarkTheme = applyTheme(theme);
+		await settingsState.setValue({ unit, theme });
+		if (rawForecast) {
+			applyForecast(rawForecast, isDarkTheme);
 		}
 	}
 
 	onMount(async () => {
 		try {
-			const [savedLocations, savedSettings] = await Promise.all([
+			const [rawLocations, savedSettings] = await Promise.all([
 				locationsState.getValue(),
 				settingsState.getValue()
 			]);
 
+			const savedLocations = rawLocations?.list
+				? rawLocations
+				: { list: [], activeIndex: 0 };
+
 			unit = savedSettings.unit;
+			theme = savedSettings.theme ?? 'system';
+			isDarkTheme = applyTheme(theme);
 			locationsCount = savedLocations.list.length;
 
 			const activeLocation = savedLocations.list[savedLocations.activeIndex];
@@ -116,7 +133,7 @@
 				return;
 			}
 
-			locationLabel = [activeLocation.name, activeLocation.admin1, activeLocation.country]
+			locationLabel = [activeLocation.name, activeLocation.country]
 				.filter(Boolean)
 				.join(', ');
 
@@ -139,9 +156,8 @@
 				});
 			}
 
-		rawForecast = forecast;
-		const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-		applyForecast(forecast, isDark);
+			rawForecast = forecast;
+			applyForecast(forecast, isDarkTheme);
 		} catch {
 			error = 'Unable to load weather right now.';
 		} finally {
@@ -150,7 +166,7 @@
 	});
 </script>
 
-<main class="mx-auto w-full bg-surface-container-high p-3.5 shadow-2xl">
+<main class="mx-auto w-full bg-surface-bright p-3.5 shadow-2xl">
 	{#if loading}
 		<div class="flex items-center justify-center">
 			<M3LoadingIndicator />
@@ -162,7 +178,7 @@
 			{error}
 		</div>
 	{:else}
-		<div class="flex items-center justify-between">
+		<header class="flex items-center justify-between">
 			<button
 				onclick={() => replace('/locations')}
 				class="flex min-w-0 flex-1 h-6 items-center gap-1 rounded-md border-none bg-transparent px-1 py-0.75 text-xs text-on-surface-variant transition-colors hover:bg-surface-container-highest hover:text-on-surface"
@@ -173,6 +189,19 @@
 
 			<div class="flex items-center gap-1 px-1">
 				<button
+					type="button"
+					onclick={toggleTheme}
+					aria-label={isDarkTheme ? 'Switch to light theme' : 'Switch to dark theme'}
+					class="flex h-6 w-[34px] shrink-0 cursor-pointer items-center justify-center rounded-md bg-surface-container-highest text-on-surface transition-colors hover:bg-surface-variant hover:text-on-surface-variant"
+				>
+					{#if isDarkTheme}
+						<Moon size={12} strokeWidth={2} />
+					{:else}
+						<Sun size={12} strokeWidth={2} />
+					{/if}
+				</button>
+				<button
+					type="button"
 					onclick={toggleUnit}
 					class="flex h-6 w-[34px] shrink-0 cursor-pointer items-center justify-center rounded-md bg-surface-container-highest text-xs font-semibold text-on-surface transition-colors hover:bg-surface-variant hover:text-on-surface-variant"
 				>
@@ -186,9 +215,9 @@
 					<Heart size={12} strokeWidth={2} />
 				</a>
 			</div>
-		</div>
+		</header>
 
-		<header class="px-2 py-4">
+		<section class="px-2 py-4">
 			<div class="flex items-start justify-between">
 				<div>
 					<div class="flex items-center gap-2">
@@ -203,7 +232,7 @@
 					{currentTemp}°
 				</h1>
 			</div>
-		</header>
+		</section>
 
 		<section class="mb-4 rounded-2xl bg-surface-container px-3 py-2.5">
 			<div class="grid grid-cols-5 gap-2">
@@ -228,6 +257,12 @@
 					</div>
 				</div>
 			{/each}
+		</section>
+
+		<section class="flex items-center justify-center pt-1">
+			<a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer" class="text-xs text-on-surface-variant">
+				Powered by Open-Meteo
+			</a>
 		</section>
 	{/if}
 </main>

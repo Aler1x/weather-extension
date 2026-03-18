@@ -6,7 +6,7 @@ export const locationsState = storage.defineItem<LocationsState>('local:location
 });
 
 export const settingsState = storage.defineItem<Settings>('local:settings', {
-  fallback: { unit: 'C' },
+  fallback: { unit: 'C', theme: 'system' },
 });
 
 /** keyed by `${latitude},${longitude}` */

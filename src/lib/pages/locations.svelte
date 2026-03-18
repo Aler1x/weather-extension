@@ -4,7 +4,7 @@
 	import { locationsState } from '~/lib/stores';
 	import { geocodeCity } from '~/lib/weather';
 	import type { GeoResult, LocationsState } from '~/lib/types';
-	import { ArrowLeft, Trash2, MapPin, Check } from '@lucide/svelte';
+	import { ArrowLeft, ArrowDown, ArrowUp, Trash2, MapPin, Check } from '@lucide/svelte';
 
 	let city = $state('');
 	let loading = $state(false);
@@ -80,8 +80,37 @@
 		if (newList.length === 0) replace('/');
 	}
 
+	async function moveLocation(fromIndex: number, toIndex: number): Promise<void> {
+		if (toIndex < 0 || toIndex >= locations.list.length || fromIndex === toIndex) {
+			return;
+		}
+
+		const list = [...locations.list];
+		const [movedLocation] = list.splice(fromIndex, 1);
+		if (!movedLocation) {
+			return;
+		}
+
+		list.splice(toIndex, 0, movedLocation);
+
+		let activeIndex = locations.activeIndex;
+		if (locations.activeIndex === fromIndex) {
+			activeIndex = toIndex;
+		} else if (fromIndex < toIndex) {
+			if (locations.activeIndex > fromIndex && locations.activeIndex <= toIndex) {
+				activeIndex = locations.activeIndex - 1;
+			}
+		} else if (locations.activeIndex >= toIndex && locations.activeIndex < fromIndex) {
+			activeIndex = locations.activeIndex + 1;
+		}
+
+		const updated: LocationsState = { list, activeIndex };
+		await locationsState.setValue(JSON.parse(JSON.stringify(updated)));
+		locations = updated;
+	}
+
 	function locationLabel(loc: GeoResult): string {
-		return [loc.name, loc.admin1, loc.country].filter(Boolean).join(', ');
+		return [loc.name, loc.country].filter(Boolean).join(', ');
 	}
 </script>
 
@@ -118,16 +147,40 @@
 						</span>
 					</button>
 
-					{#if index === locations.activeIndex}
-						<Check size={14} strokeWidth={2.5} class="shrink-0 text-primary" />
-					{/if}
+					<div class="ml-2 flex shrink-0 items-center gap-1">
+						{#if index === locations.activeIndex}
+							<Check size={14} strokeWidth={2.5} class="shrink-0 text-primary" />
+						{/if}
 
-					<button
-						onclick={() => removeLocation(index)}
-						class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-on-surface-variant transition-colors hover:bg-error-container hover:text-on-error-container"
-					>
-						<Trash2 size={13} strokeWidth={2} />
-					</button>
+						<button
+							type="button"
+							onclick={() => moveLocation(index, index - 1)}
+							disabled={index === 0}
+							aria-label="Move location up"
+							class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-on-surface-variant transition-colors hover:bg-surface-container-highest hover:text-on-surface disabled:cursor-not-allowed disabled:opacity-40"
+						>
+							<ArrowUp size={13} strokeWidth={2} />
+						</button>
+
+						<button
+							type="button"
+							onclick={() => moveLocation(index, index + 1)}
+							disabled={index === locations.list.length - 1}
+							aria-label="Move location down"
+							class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-on-surface-variant transition-colors hover:bg-surface-container-highest hover:text-on-surface disabled:cursor-not-allowed disabled:opacity-40"
+						>
+							<ArrowDown size={13} strokeWidth={2} />
+						</button>
+
+						<button
+							type="button"
+							onclick={() => removeLocation(index)}
+							aria-label="Remove location"
+							class="flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-on-surface-variant transition-colors hover:bg-error-container hover:text-on-error-container"
+						>
+							<Trash2 size={13} strokeWidth={2} />
+						</button>
+					</div>
 				</div>
 			{/each}
 		</section>

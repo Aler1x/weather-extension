@@ -1,9 +1,0 @@
-{
-  "summary": {
-    "en-US": "10-day weather forecast in your toolbar. Search any city, save multiple locations, and switch between them instantly. Powered by Open-Meteo — no account or API key needed."
-  },
-  "categories": ["other"],
-  "version": {
-    "license": "MPL-2.0"
-  }
-}

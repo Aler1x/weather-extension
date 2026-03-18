@@ -8,7 +8,8 @@
 
   onMount(async () => {
     const locs = await locationsState.getValue();
-    replace(locs.list.length === 0 ? "/" : "/weather");
+    const hasLocations = Array.isArray(locs?.list) && locs.list.length > 0;
+    replace(hasLocations ? "/weather" : "/");
     ready = true;
   });
 </script>
