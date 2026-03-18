@@ -2,14 +2,6 @@ name: Release Unlisted
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - "src/**"
-      - "public/**"
-      - "package.json"
-      - "wxt.config.ts"
 
 jobs:
   submit:
