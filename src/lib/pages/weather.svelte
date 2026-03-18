@@ -118,9 +118,7 @@
 				settingsState.getValue()
 			]);
 
-			const savedLocations = rawLocations?.list
-				? rawLocations
-				: { list: [], activeIndex: 0 };
+			const savedLocations = rawLocations?.list ? rawLocations : { list: [], activeIndex: 0 };
 
 			unit = savedSettings.unit;
 			theme = savedSettings.theme ?? 'system';
@@ -133,9 +131,7 @@
 				return;
 			}
 
-			locationLabel = [activeLocation.name, activeLocation.country]
-				.filter(Boolean)
-				.join(', ');
+			locationLabel = [activeLocation.name, activeLocation.country].filter(Boolean).join(', ');
 
 			const key = cacheKey(activeLocation.latitude, activeLocation.longitude);
 			const cache = await forecastCache.getValue();
@@ -168,7 +164,7 @@
 
 <main class="mx-auto w-full bg-surface-bright p-3.5 shadow-2xl">
 	{#if loading}
-		<div class="flex items-center justify-center">
+		<div class="flex items-center justify-center h-[506px]">
 			<M3LoadingIndicator />
 		</div>
 	{:else if error}
@@ -181,7 +177,7 @@
 		<header class="flex items-center justify-between">
 			<button
 				onclick={() => replace('/locations')}
-				class="flex min-w-0 flex-1 h-6 items-center gap-1 rounded-md border-none bg-transparent px-1 py-0.75 text-xs text-on-surface-variant transition-colors hover:bg-surface-container-highest hover:text-on-surface"
+				class="flex h-6 min-w-0 flex-1 items-center gap-1 rounded-md border-none bg-transparent px-1 py-0.75 text-xs text-on-surface-variant transition-colors hover:bg-surface-container-highest hover:text-on-surface"
 			>
 				<MapPin size={11} strokeWidth={2} class="shrink-0" />
 				<span class="truncate">{locationLabel}</span>
@@ -248,7 +244,7 @@
 
 		<section class="space-y-0.5 overflow-hidden rounded-2xl">
 			{#each dailyItems as day}
-				<div class="flex items-center justify-between px-4 py-2.5 bg-surface-container">
+				<div class="flex items-center justify-between bg-surface-container px-4 py-2.5">
 					<p class="text-on-surface">{day.day}</p>
 					<div class="flex items-center gap-2">
 						<p class="text-on-surface">{day.high}°</p>
@@ -260,7 +256,12 @@
 		</section>
 
 		<section class="flex items-center justify-center pt-1">
-			<a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer" class="text-xs text-on-surface-variant">
+			<a
+				href="https://open-meteo.com/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-xs text-on-surface-variant"
+			>
 				Powered by Open-Meteo
 			</a>
 		</section>
