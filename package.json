@@ -1,6 +1,6 @@
 {
-  "name": "@alerix/simple-forecast",
-  "description": "Simple Forecast extension",
+  "name": "@alerix/material-weather",
+  "description": "Material Weather browser extension",
   "private": true,
   "version": "2.0.0",
   "type": "module",

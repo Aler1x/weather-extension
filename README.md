@@ -1,6 +1,6 @@
-# Simple Forecast
+# Material Weather
 
-Simple Forecast is a compact browser extension popup for checking weather across multiple saved locations. It is built with [WXT](https://wxt.dev), Svelte 5, and the [Open-Meteo](https://open-meteo.com/) APIs.
+Material Weather is a compact browser extension popup for checking weather across multiple saved locations. It is built with [WXT](https://wxt.dev), Svelte 5, and the [Open-Meteo](https://open-meteo.com/) APIs.
 
 ## Features
 
