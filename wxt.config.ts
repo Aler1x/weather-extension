@@ -9,7 +9,7 @@ export default defineConfig({
     plugins: [tailwindcss()]
   }),
   manifest: {
-    name: 'Simple Forecast',
+    name: 'Material Weather',
     permissions: ['storage'],
     host_permissions: [
       'https://geocoding-api.open-meteo.com/*',
@@ -17,7 +17,8 @@ export default defineConfig({
     ],
     browser_specific_settings: {
       gecko: {
-        id: "simple-forecast@alerix.dev",
+        // Kept for Firefox AMO update continuity (display name is Material Weather).
+        id: 'simple-forecast@alerix.dev',
       },
     },
   },

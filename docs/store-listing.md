@@ -12,7 +12,7 @@ Material-style weather in your toolbar. Search any city, save multiple locations
 
 ## Long description
 
-**Simple Forecast** is a compact toolbar popup with a Material-inspired weather card: current conditions, a five-hour strip, and a multi-day outlook — no sign-up, no API key, free to use.
+**Material Weather** is a compact toolbar popup with a Material-inspired weather card: current conditions, a five-hour strip, and a multi-day outlook — no sign-up, no API key, free to use.
 
 ### Features
 
@@ -32,7 +32,3 @@ No accounts and no analytics. Saved locations, theme, unit, and cached forecasts
 - `https://api.open-meteo.com` — forecast for the coordinates you selected  
 
 ---
-
-## After renaming the extension
-
-Replace **Simple Forecast** in the long description (and the store title) with the new name. Keep the “Material-style” / “Material-inspired” phrases in the summary and first paragraph for searchability.
