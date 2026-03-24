@@ -50,7 +50,7 @@ export async function fetchForecast(lat: number, lon: number): Promise<ForecastD
     windSpeed: data.daily.windspeed_10m_max[i] as number,
   }));
 
-  // Next 5 hours starting from current local hour (index 0 = today midnight)
+  // Next 24 hours starting from current local hour (hourly[0] = today 00:00 local)
   const nowHour = new Date().getHours();
   const hourly: HourlyPoint[] = (data.hourly.time as string[])
     .map((time, i) => ({
@@ -58,7 +58,7 @@ export async function fetchForecast(lat: number, lon: number): Promise<ForecastD
       temp: Math.round(data.hourly.temperature_2m[i] as number),
       weatherCode: data.hourly.weathercode[i] as number,
     }))
-    .slice(nowHour, nowHour + 5);
+    .slice(nowHour, nowHour + 24);
 
   const current: CurrentWeather = {
     temp: Math.round(data.current.temperature_2m as number),

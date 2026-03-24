@@ -280,4 +280,27 @@
     background-color: var(--border);
     border-radius: 2px;
   }
+
+  /* Material 3–style horizontal scrollbar: slim pill thumb, subtle track */
+  .scrollbar-m3-horizontal {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--on-surface-variant) 42%, transparent) transparent;
+  }
+  .scrollbar-m3-horizontal::-webkit-scrollbar {
+    height: 4px;
+  }
+  .scrollbar-m3-horizontal::-webkit-scrollbar-track {
+    margin-inline: 2px;
+    background: transparent;
+    border-radius: 9999px;
+  }
+  .scrollbar-m3-horizontal::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background-color: color-mix(in srgb, var(--on-surface-variant) 42%, transparent);
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
+  .scrollbar-m3-horizontal::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in srgb, var(--on-surface-variant) 58%, transparent);
+  }
 }

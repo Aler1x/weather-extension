@@ -230,10 +230,14 @@
 			</div>
 		</section>
 
-		<section class="mb-4 rounded-2xl bg-surface-container px-3 py-2.5">
-			<div class="grid grid-cols-5 gap-2">
+		<section class="mb-4 rounded-2xl bg-surface-container py-2.5 pl-3 pr-0">
+			<div
+				class="scrollbar-m3-horizontal flex gap-2 overflow-x-auto pb-1.5 pr-3 [-webkit-overflow-scrolling:touch]"
+				role="region"
+				aria-label="Hourly forecast"
+			>
 				{#each hourlyItems as hour}
-					<div class="text-center">
+					<div class="w-[3.25rem] shrink-0 text-center">
 						<p class="leading-none text-on-surface">{hour.temp}°</p>
 						<img src={hour.iconUrl} alt={hour.label} class="mx-auto mt-1.5 h-8 w-8" />
 						<p class="mt-1 text-on-surface-variant">{hour.label}</p>
