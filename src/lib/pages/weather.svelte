@@ -83,8 +83,7 @@
 
 		hourlyItems = forecast.hourly.map((point, index) => {
 			const dayKey = point.time.slice(0, 10);
-			const prevDayKey =
-				index > 0 ? forecast.hourly[index - 1].time.slice(0, 10) : dayKey;
+			const prevDayKey = index > 0 ? forecast.hourly[index - 1].time.slice(0, 10) : dayKey;
 			return {
 				label: formatHourLabel(point.time, index),
 				temp: convertTemp(point.temp, unit),
@@ -171,7 +170,7 @@
 
 <main class="mx-auto w-full bg-surface-bright p-3.5 shadow-2xl">
 	{#if loading}
-		<div class="flex items-center justify-center h-[506px]">
+		<div class="flex h-[506px] items-center justify-center">
 			<M3LoadingIndicator />
 		</div>
 	{:else if error}
@@ -237,20 +236,17 @@
 			</div>
 		</section>
 
-		<section class="mb-4 rounded-2xl bg-surface-container py-2.5 pl-3 pr-0">
+		<section class="mb-4 rounded-2xl bg-surface-container py-2.5 pr-0 pl-3">
 			<div
-				class="scrollbar-m3-horizontal flex items-stretch gap-2 overflow-x-auto pb-1.5 pr-3 [-webkit-overflow-scrolling:touch]"
+				class="scrollbar-m3-horizontal flex items-stretch gap-2 overflow-x-auto pr-3 pb-1.5 [-webkit-overflow-scrolling:touch]"
 				role="region"
 				aria-label="Hourly forecast"
 			>
 				{#each hourlyItems as hour}
 					{#if hour.showDaySeparator}
-						<div
-							class="w-px shrink-0 self-stretch bg-outline"
-							aria-hidden="true"
-						></div>
+						<div class="w-0.75 rounded-full shrink-0 self-stretch bg-outline" aria-hidden="true"></div>
 					{/if}
-					<div class="w-[3.25rem] shrink-0 text-center">
+					<div class="w-13 shrink-0 text-center">
 						<p class="leading-none text-on-surface">{hour.temp}°</p>
 						<img src={hour.iconUrl} alt={hour.label} class="mx-auto mt-1.5 h-8 w-8" />
 						<p class="mt-1 text-on-surface-variant">{hour.label}</p>
