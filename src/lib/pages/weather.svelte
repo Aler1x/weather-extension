@@ -21,6 +21,7 @@
 		label: string;
 		temp: number;
 		iconUrl: string;
+		showDaySeparator: boolean;
 	};
 
 	type DailyView = {
@@ -80,11 +81,17 @@
 			todayLow = convertTemp(today.tempMin, unit);
 		}
 
-		hourlyItems = forecast.hourly.map((point, index) => ({
-			label: formatHourLabel(point.time, index),
-			temp: convertTemp(point.temp, unit),
-			iconUrl: getWeatherIconUrl(point.weatherCode, isDayFromTime(point.time), isDark)
-		}));
+		hourlyItems = forecast.hourly.map((point, index) => {
+			const dayKey = point.time.slice(0, 10);
+			const prevDayKey =
+				index > 0 ? forecast.hourly[index - 1].time.slice(0, 10) : dayKey;
+			return {
+				label: formatHourLabel(point.time, index),
+				temp: convertTemp(point.temp, unit),
+				iconUrl: getWeatherIconUrl(point.weatherCode, isDayFromTime(point.time), isDark),
+				showDaySeparator: index > 0 && dayKey !== prevDayKey
+			};
+		});
 
 		dailyItems = forecast.daily.slice(0, 4).map((day) => ({
 			day: toDayName(day.date),
@@ -232,11 +239,17 @@
 
 		<section class="mb-4 rounded-2xl bg-surface-container py-2.5 pl-3 pr-0">
 			<div
-				class="scrollbar-m3-horizontal flex gap-2 overflow-x-auto pb-1.5 pr-3 [-webkit-overflow-scrolling:touch]"
+				class="scrollbar-m3-horizontal flex items-stretch gap-2 overflow-x-auto pb-1.5 pr-3 [-webkit-overflow-scrolling:touch]"
 				role="region"
 				aria-label="Hourly forecast"
 			>
 				{#each hourlyItems as hour}
+					{#if hour.showDaySeparator}
+						<div
+							class="w-px shrink-0 self-stretch bg-outline"
+							aria-hidden="true"
+						></div>
+					{/if}
 					<div class="w-[3.25rem] shrink-0 text-center">
 						<p class="leading-none text-on-surface">{hour.temp}°</p>
 						<img src={hour.iconUrl} alt={hour.label} class="mx-auto mt-1.5 h-8 w-8" />
