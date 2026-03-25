@@ -17,6 +17,38 @@
 
 	const CACHE_TTL_MS = 20 * 60 * 1000;
 
+	function wheelToHorizontalScroll(node: HTMLDivElement) {
+		function onWheel(e: WheelEvent) {
+			const maxLeft = Math.max(0, node.scrollWidth - node.clientWidth);
+			if (maxLeft <= 0) return;
+
+			let delta: number;
+			if (e.shiftKey && Math.abs(e.deltaY) >= Math.abs(e.deltaX)) {
+				delta = e.deltaY;
+			} else if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+				delta = e.deltaX;
+			} else {
+				delta = e.deltaY;
+			}
+
+			if (delta === 0) return;
+
+			const prev = node.scrollLeft;
+			const next = Math.min(maxLeft, Math.max(0, prev + delta));
+			if (next !== prev) {
+				node.scrollLeft = next;
+				e.preventDefault();
+			}
+		}
+
+		node.addEventListener('wheel', onWheel, { passive: false });
+		return {
+			destroy() {
+				node.removeEventListener('wheel', onWheel);
+			}
+		};
+	}
+
 	type HourlyView = {
 		label: string;
 		temp: number;
@@ -238,9 +270,10 @@
 
 		<section class="mb-4 rounded-2xl bg-surface-container py-2.5 pr-0 pl-3">
 			<div
-				class="scrollbar-m3-horizontal flex items-stretch gap-2 overflow-x-auto pr-3 pb-1.5 [-webkit-overflow-scrolling:touch]"
+				class="scrollbar-hide flex items-stretch gap-2 overflow-x-auto pb-1.5 pr-3 [-webkit-overflow-scrolling:touch]"
 				role="region"
 				aria-label="Hourly forecast"
+				use:wheelToHorizontalScroll
 			>
 				{#each hourlyItems as hour}
 					{#if hour.showDaySeparator}
