@@ -103,16 +103,16 @@ src/
 
 ## Tech stack
 
-| | |
-|---|---|
-| Framework | [WXT](https://wxt.dev) |
-| UI | [Svelte 5](https://svelte.dev) with runes |
-| Styling | [Tailwind CSS](https://tailwindcss.com/) |
-| Storage | [@wxt-dev/storage](https://github.com/wxt-dev/wxt/tree/main/packages/storage) |
-| Icons | [@lucide/svelte](https://lucide.dev) |
-| Weather API | [Open-Meteo](https://open-meteo.com/) + Geocoding API |
-| Weather icon set | [Google weather icons](https://github.com/bignutty/google-weather-icons) |
-| Package manager | [Bun](https://bun.sh) |
+|                  |                                                                               |
+| ---------------- | ----------------------------------------------------------------------------- |
+| Framework        | [WXT](https://wxt.dev)                                                        |
+| UI               | [Svelte 5](https://svelte.dev) with runes                                     |
+| Styling          | [Tailwind CSS](https://tailwindcss.com/)                                      |
+| Storage          | [@wxt-dev/storage](https://github.com/wxt-dev/wxt/tree/main/packages/storage) |
+| Icons            | [@lucide/svelte](https://lucide.dev)                                          |
+| Weather API      | [Open-Meteo](https://open-meteo.com/) + Geocoding API                         |
+| Weather icon set | [Google weather icons](https://github.com/bignutty/google-weather-icons)      |
+| Package manager  | [Bun](https://bun.sh)                                                         |
 
 ## Data & privacy
 

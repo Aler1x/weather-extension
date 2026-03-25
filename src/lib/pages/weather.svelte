@@ -17,10 +17,43 @@
 
 	const CACHE_TTL_MS = 20 * 60 * 1000;
 
+	function wheelToHorizontalScroll(node: HTMLDivElement) {
+		function onWheel(e: WheelEvent) {
+			const maxLeft = Math.max(0, node.scrollWidth - node.clientWidth);
+			if (maxLeft <= 0) return;
+
+			let delta: number;
+			if (e.shiftKey && Math.abs(e.deltaY) >= Math.abs(e.deltaX)) {
+				delta = e.deltaY;
+			} else if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+				delta = e.deltaX;
+			} else {
+				delta = e.deltaY;
+			}
+
+			if (delta === 0) return;
+
+			const prev = node.scrollLeft;
+			const next = Math.min(maxLeft, Math.max(0, prev + delta));
+			if (next !== prev) {
+				node.scrollLeft = next;
+				e.preventDefault();
+			}
+		}
+
+		node.addEventListener('wheel', onWheel, { passive: false });
+		return {
+			destroy() {
+				node.removeEventListener('wheel', onWheel);
+			}
+		};
+	}
+
 	type HourlyView = {
 		label: string;
 		temp: number;
 		iconUrl: string;
+		showDaySeparator: boolean;
 	};
 
 	type DailyView = {
@@ -80,11 +113,16 @@
 			todayLow = convertTemp(today.tempMin, unit);
 		}
 
-		hourlyItems = forecast.hourly.map((point, index) => ({
-			label: formatHourLabel(point.time, index),
-			temp: convertTemp(point.temp, unit),
-			iconUrl: getWeatherIconUrl(point.weatherCode, isDayFromTime(point.time), isDark)
-		}));
+		hourlyItems = forecast.hourly.map((point, index) => {
+			const dayKey = point.time.slice(0, 10);
+			const prevDayKey = index > 0 ? forecast.hourly[index - 1].time.slice(0, 10) : dayKey;
+			return {
+				label: formatHourLabel(point.time, index),
+				temp: convertTemp(point.temp, unit),
+				iconUrl: getWeatherIconUrl(point.weatherCode, isDayFromTime(point.time), isDark),
+				showDaySeparator: index > 0 && dayKey !== prevDayKey
+			};
+		});
 
 		dailyItems = forecast.daily.slice(0, 4).map((day) => ({
 			day: toDayName(day.date),
@@ -164,7 +202,7 @@
 
 <main class="mx-auto w-full bg-surface-bright p-3.5 shadow-2xl">
 	{#if loading}
-		<div class="flex items-center justify-center h-[506px]">
+		<div class="flex h-[506px] items-center justify-center">
 			<M3LoadingIndicator />
 		</div>
 	{:else if error}
@@ -230,10 +268,21 @@
 			</div>
 		</section>
 
-		<section class="mb-4 rounded-2xl bg-surface-container px-3 py-2.5">
-			<div class="grid grid-cols-5 gap-2">
+		<section class="mb-4 rounded-2xl bg-surface-container py-2.5 pr-0 pl-3">
+			<div
+				class="scrollbar-hide flex items-stretch gap-2 overflow-x-auto pr-3 pb-1.5 [-webkit-overflow-scrolling:touch]"
+				role="region"
+				aria-label="Hourly forecast"
+				use:wheelToHorizontalScroll
+			>
 				{#each hourlyItems as hour}
-					<div class="text-center">
+					{#if hour.showDaySeparator}
+						<div
+							class="w-0.75 shrink-0 self-stretch rounded-full bg-outline"
+							aria-hidden="true"
+						></div>
+					{/if}
+					<div class="w-12 shrink-0 text-center">
 						<p class="leading-none text-on-surface">{hour.temp}°</p>
 						<img src={hour.iconUrl} alt={hour.label} class="mx-auto mt-1.5 h-8 w-8" />
 						<p class="mt-1 text-on-surface-variant">{hour.label}</p>
