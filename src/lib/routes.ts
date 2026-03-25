@@ -3,7 +3,7 @@ import Weather from '~/lib/pages/weather.svelte';
 import Locations from '~/lib/pages/locations.svelte';
 
 export default {
-  '/': Landing,
-  '/weather': Weather,
-  '/locations': Locations,
+	'/': Landing,
+	'/weather': Weather,
+	'/locations': Locations
 };

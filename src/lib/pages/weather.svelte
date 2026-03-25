@@ -270,14 +270,17 @@
 
 		<section class="mb-4 rounded-2xl bg-surface-container py-2.5 pr-0 pl-3">
 			<div
-				class="scrollbar-hide flex items-stretch gap-2 overflow-x-auto pb-1.5 pr-3 [-webkit-overflow-scrolling:touch]"
+				class="scrollbar-hide flex items-stretch gap-2 overflow-x-auto pr-3 pb-1.5 [-webkit-overflow-scrolling:touch]"
 				role="region"
 				aria-label="Hourly forecast"
 				use:wheelToHorizontalScroll
 			>
 				{#each hourlyItems as hour}
 					{#if hour.showDaySeparator}
-						<div class="w-0.75 rounded-full shrink-0 self-stretch bg-outline" aria-hidden="true"></div>
+						<div
+							class="w-0.75 shrink-0 self-stretch rounded-full bg-outline"
+							aria-hidden="true"
+						></div>
 					{/if}
 					<div class="w-12 shrink-0 text-center">
 						<p class="leading-none text-on-surface">{hour.temp}°</p>

@@ -128,7 +128,7 @@
 	{#if locations.list.length > 0}
 		<section class="mb-3 space-y-0.5 overflow-hidden rounded-2xl">
 			{#each locations.list as loc, index}
-				<div class="flex items-center justify-between px-4 py-2.5 bg-surface-container">
+				<div class="flex items-center justify-between bg-surface-container px-4 py-2.5">
 					<button
 						onclick={() => setActive(index)}
 						class="flex min-w-0 flex-1 items-center gap-2 text-left"
@@ -136,7 +136,9 @@
 						<MapPin
 							size={14}
 							strokeWidth={2}
-							class={index === locations.activeIndex ? 'shrink-0 text-primary' : 'shrink-0 text-on-surface-variant'}
+							class={index === locations.activeIndex
+								? 'shrink-0 text-primary'
+								: 'shrink-0 text-on-surface-variant'}
 						/>
 						<span
 							class="truncate text-sm {index === locations.activeIndex

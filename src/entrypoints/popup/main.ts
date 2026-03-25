@@ -8,7 +8,7 @@ const settings = await settingsState.getValue();
 applyTheme(settings.theme ?? 'system');
 
 const app = mount(App, {
-  target: document.getElementById('app')!,
+	target: document.getElementById('app')!
 });
 
 export default app;
