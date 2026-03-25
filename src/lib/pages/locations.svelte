@@ -114,7 +114,7 @@
 	}
 </script>
 
-<main class="mx-auto w-full bg-surface-container-high p-3.5 shadow-2xl">
+<main class="mx-auto w-full bg-surface-bright p-3.5 shadow-2xl">
 	<div class="mb-3 flex items-center gap-2">
 		<button
 			onclick={() => replace('/weather')}
