@@ -279,7 +279,7 @@
 					{#if hour.showDaySeparator}
 						<div class="w-0.75 rounded-full shrink-0 self-stretch bg-outline" aria-hidden="true"></div>
 					{/if}
-					<div class="w-13 shrink-0 text-center">
+					<div class="w-12 shrink-0 text-center">
 						<p class="leading-none text-on-surface">{hour.temp}°</p>
 						<img src={hour.iconUrl} alt={hour.label} class="mx-auto mt-1.5 h-8 w-8" />
 						<p class="mt-1 text-on-surface-variant">{hour.label}</p>

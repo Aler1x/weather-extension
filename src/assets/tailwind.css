@@ -261,7 +261,7 @@
   body {
     @apply bg-background text-foreground rounded-2xl ;
     letter-spacing: var(--tracking-normal);
-    width: 350px;
+    width: 330px;
   }
 
   ::selection {
