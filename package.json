@@ -2,7 +2,7 @@
 	"name": "@alerix/material-weather",
 	"description": "Material Weather browser extension",
 	"private": true,
-	"version": "2.1.1",
+	"version": "2.2.1",
 	"type": "module",
 	"scripts": {
 		"dev": "wxt",
