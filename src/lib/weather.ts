@@ -98,20 +98,6 @@ export function getWeatherLabel(code: number): string {
   return 'Unknown';
 }
 
-export function getWeatherIconName(code: number): string {
-  if (code === 0 || code === 1) return 'Sun';
-  if (code === 2) return 'CloudSun';
-  if (code === 3) return 'Cloud';
-  if (code === 45 || code === 48) return 'Wind';
-  if (code >= 51 && code <= 55) return 'CloudDrizzle';
-  if (code >= 61 && code <= 65) return 'CloudRain';
-  if (code >= 71 && code <= 77) return 'CloudSnow';
-  if (code >= 80 && code <= 82) return 'CloudRain';
-  if (code >= 85 && code <= 86) return 'CloudSnow';
-  if (code >= 95) return 'CloudLightning';
-  return 'Cloud';
-}
-
 function wmoToIconFile(code: number, isDay: boolean): string {
   if (code === 0 || code === 1) return isDay ? 'clear_day.svg' : 'clear_night.svg';
   if (code === 2) return isDay ? 'partly_cloudy_day.svg' : 'partly_cloudy_night.svg';
@@ -132,15 +118,4 @@ function wmoToIconFile(code: number, isDay: boolean): string {
 export function getWeatherIconUrl(code: number, isDay: boolean, isDark: boolean): string {
   const theme = isDark ? 'dark' : 'light';
   return `/v2/${theme}/${wmoToIconFile(code, isDay)}`;
-}
-
-export function getIconColor(code: number): string {
-  if (code === 0 || code === 1) return '#F9A825';  // amber — sun (widget-like)
-  if (code === 2) return '#7B6BA8';                // mid purple — partly cloudy
-  if (code === 3 || code === 45 || code === 48) return '#6B7280'; // gray — overcast/fog
-  if (code >= 51 && code <= 55) return '#5B8FCF';  // blue — drizzle
-  if ((code >= 61 && code <= 65) || (code >= 80 && code <= 82)) return '#4A7FBF'; // deeper blue — rain
-  if ((code >= 71 && code <= 77) || (code >= 85 && code <= 86)) return '#8BA3C4'; // light blue — snow
-  if (code >= 95) return '#E07B5A';                // coral — thunderstorm
-  return '#6B7280';
 }
