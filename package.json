@@ -1,6 +1,6 @@
 {
 	"name": "@alerix/material-weather",
-	"description": "Material-style weather in your toolbar. Search any city, save multiple locations, reorder the list, and switch the active place in one tap. Powered by Open-Meteo — no account or API key.",
+	"description": "Material-style weather in your toolbar. Search any city, save multiple locations and switch the active place in one tap.",
 	"private": true,
 	"version": "2.2.1",
 	"type": "module",
