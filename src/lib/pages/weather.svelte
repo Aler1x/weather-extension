@@ -135,6 +135,8 @@
 	async function toggleUnit(): Promise<void> {
 		unit = unit === 'C' ? 'F' : 'C';
 		await settingsState.setValue({ unit, theme });
+		// @ts-expect-error - i hate typescript, this is so stupid
+		gtag('event', 'unit_switched', { unit });
 		if (rawForecast) {
 			applyForecast(rawForecast, isDarkTheme);
 		}
@@ -143,6 +145,8 @@
 	async function toggleTheme(): Promise<void> {
 		theme = resolveIsDark(theme) ? 'light' : 'dark';
 		isDarkTheme = applyTheme(theme);
+		// @ts-expect-error - i hate typescript, this is so stupid
+		gtag('event', 'theme_switched', { theme });
 		await settingsState.setValue({ unit, theme });
 		if (rawForecast) {
 			applyForecast(rawForecast, isDarkTheme);
